@@ -79,25 +79,55 @@ class AskIn(BaseModel):
 # -----------------------------------------------------------------------------
 # Helpers
 # -----------------------------------------------------------------------------
+# def _run_once(query: str, thread_id: Optional[str] = None) -> str:
+#     """
+#     Run a single-turn interaction against the graph app and return the last
+#     message content.
+#     """
+#     if graph_app is None:
+#         print("ERROR: LangGraph application is not loaded.")
+#         return "Internal Error: Server function could not initialize."
+
+#     cfg = {"configurable": {"thread_id": thread_id}} if thread_id else {}
+#     last = ""
+#     for state in graph_app.stream(
+#         {"messages": [{"role": "user", "content": query}]},
+#         cfg,
+#         stream_mode="values",
+#     ):
+#         msg = state["messages"][-1]
+#         last = getattr(msg, "content", msg.get("content", ""))
+#     return last
+
+
+# In api/main.py (around line 77):
 def _run_once(query: str, thread_id: Optional[str] = None) -> str:
-    """
-    Run a single-turn interaction against the graph app and return the last
-    message content.
-    """
+    # ... checks for graph_app is None ...
     if graph_app is None:
         print("ERROR: LangGraph application is not loaded.")
         return "Internal Error: Server function could not initialize."
 
     cfg = {"configurable": {"thread_id": thread_id}} if thread_id else {}
     last = ""
-    for state in graph_app.stream(
-        {"messages": [{"role": "user", "content": query}]},
-        cfg,
-        stream_mode="values",
-    ):
-        msg = state["messages"][-1]
-        last = getattr(msg, "content", msg.get("content", ""))
-    return last
+    
+    # --- ADD TRY/EXCEPT BLOCK HERE ---
+    try:
+        for state in graph_app.stream(
+            {"messages": [{"role": "user", "content": query}]},
+            cfg,
+            stream_mode="values",
+        ):
+            msg = state["messages"][-1]
+            last = getattr(msg, "content", msg.get("content", ""))
+        return last # Successful completion
+        
+    except Exception as e:
+        # Import traceback if you haven't already
+        import traceback 
+        print("RUNTIME ERROR: Failure inside LangGraph stream.")
+        traceback.print_exc() # Print the detailed crash reason
+        # Return a generic error to the client, but log the details
+        return f"Internal Error: Runtime crash during processing: {type(e).__name__}"
 
 # -----------------------------------------------------------------------------
 # Routes
