@@ -119,7 +119,7 @@ def root_route():
     return {"message": "Welcome to the FastAPI service. Try /api/health or /api/qa"}
 # ---------------------------
 
-@app.get("api/health")
+@app.get("/api/health")
 def health():
     """Simple liveness check."""
     return {"ok": True}
