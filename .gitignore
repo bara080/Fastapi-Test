@@ -1,1 +1,96 @@
+# macOS
+.DS_Store
+
+
+#Data
+/data
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp/
+.pnp.js
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# Virtual environments and env files
+.env
+.env.* 
+.venv/
+venv/
+env/
+ENV/
+
+
+.env
+__pycache__/
+*.pyc
+.logs/
+logs/
+
+
+# Jupyter
+.ipynb_checkpoints
+
+# ML artifacts, data and logs
+data/
+datasets/
+models/
+checkpoints/
+runs/
+logs/
+tensorboard/
+*.h5
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.bin
+
+# Database, credentials, keys
+*.sqlite
+*.sqlite3
+*.db
+*.pem
+*.key
+*.crt
+credentials
+
+# Docker / Terraform / Vagrant
+docker-compose.override.yml
+.terraform/
+.vagrant/
+
+# Build and binary artifacts
+*.o
+*.so
+*.dylib
+*.exe
+*.dll
+
+# Misc
+*.log
+*.cache
 .vercel
