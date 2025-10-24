@@ -1,18 +1,8 @@
-
-# from fastapi import FastAPI
-
-# app = FastAPI()
-
-# # GET
-
-# @app.get("/")
-# async def health_check():
-#     """Simple liveness check."""
-#     return "The health check is successful"
-
+import traceback
 
 import os
 import sys
+
 from dotenv import load_dotenv
 
 # --- FIX: Add 'src' to system path for correct module imports ---
@@ -25,13 +15,16 @@ if 'src' not in sys.path:
 # ---------------------------------------------------------------
 
 # Corrected Import: Now imports from src.utils.agenticai
+
+
+# ... (lines 14-16)
 try:
     from src.utils.agenticai import ai_app as graph_app 
 except ImportError as e:
-    print(f"FATAL ERROR: Could not import graph app: {e}")
+    # ⬅️ CHANGE: Print the full traceback for Vercel logs
+    print("FATAL ERROR: LangGraph application import failed.")
+    traceback.print_exc() 
     graph_app = None
-
-
 # -----------------------------------------------------------------------------
 # Load environment variables
 # -----------------------------------------------------------------------------
