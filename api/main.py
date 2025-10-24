@@ -109,10 +109,21 @@ def _run_once(query: str, thread_id: Optional[str] = None) -> str:
 # -----------------------------------------------------------------------------
 # Routes
 # -----------------------------------------------------------------------------
+# --- ADD THIS ROUTE BACK ---
+@app.get("/")
+def root_route():
+    """Returns a welcome message or redirects to documentation."""
+    # This will be the route hit when someone goes to:
+    # https://fast-apis-test-bkx12074c-zinga.vercel.app/ (if routed by Vercel)
+    # OR: https://fast-apis-test-bkx12074c-zinga.vercel.app/api/
+    return {"message": "Welcome to the FastAPI service. Try /api/health or /api/qa"}
+# ---------------------------
+
 @app.get("/health")
 def health():
     """Simple liveness check."""
     return {"ok": True}
+# ... rest of your code
 
 @app.post("/qa")
 def qa(inp: AskIn):
