@@ -125,22 +125,22 @@ def health():
     return {"ok": True}
 # ... rest of your code
 
-@app.post("/qa")
+@app.post("/api/qa")
 def qa(inp: AskIn):
     """Answer a direct question using the graph app."""
     return {"answer": _run_once(inp.query, inp.thread_id)}
 
-@app.post("/summarize")
+@app.post("/api/summarize")
 def summarize(inp: AskIn):
     """Summarize a query/prompt via the graph app."""
     return {"summary": _run_once(f"Summarize: {inp.query}", inp.thread_id)}
 
-@app.post("/hybrid")
+@app.post("/api/hybrid")
 def hybrid(inp: AskIn):
     """Example hybrid mode hint (preserves structure/behavior)."""
     return {"answer": _run_once(f"Use hybrid_search then answer: {inp.query}", inp.thread_id)}
 
-@app.post("/stream")
+@app.post("/api/stream")
 def stream(inp: AskIn):
     """
     Server-Sent Events streaming endpoint.
